@@ -1,0 +1,4 @@
+name: CreaJojoPluginV1
+version: '${project.version}'
+main: be.creajojo.creajojopluginv1.CreaJojoPluginV1
+api-version: '1.20'
