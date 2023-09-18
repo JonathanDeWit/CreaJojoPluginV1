@@ -1,5 +1,6 @@
 package be.creajojo.creajojopluginv1;
 
+import be.creajojo.creajojopluginv1.commands.SeedCommand;
 import be.creajojo.creajojopluginv1.events.listeners.MobEventListener;
 import be.creajojo.creajojopluginv1.events.listeners.PlayerEventListener;
 import org.bukkit.Bukkit;
@@ -14,7 +15,11 @@ public final class CreaJojoPluginV1 extends JavaPlugin {
 
         // Add username color event
         this.getServer().getPluginManager().registerEvents(new PlayerEventListener(), this);
+        // Add mob event
         this.getServer().getPluginManager().registerEvents(new MobEventListener(), this);
+
+        // Add commands
+        this.getCommand("speed").setExecutor(new SeedCommand());
     }
 
     @Override
