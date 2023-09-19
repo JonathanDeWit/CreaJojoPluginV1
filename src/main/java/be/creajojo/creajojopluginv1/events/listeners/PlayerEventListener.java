@@ -30,6 +30,9 @@ public class PlayerEventListener implements Listener {
         // Change player list name
         player.setPlayerListName(coloredName);
 
+
+        //Load buff
+
     }
 
 }

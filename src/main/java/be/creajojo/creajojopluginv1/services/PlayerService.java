@@ -7,6 +7,8 @@ import org.bukkit.entity.Player;
 
 public class PlayerService {
 
+    private final float defaultSpeed = 0.20f;
+
     private static PlayerService instance;
 
     // 2. Private constructor
@@ -44,6 +46,23 @@ public class PlayerService {
         } else {
             Bukkit.getLogger().info("Player playtime is lower than 10");
             return ChatColor.WHITE;
+        }
+    }
+
+
+    // To have the default speed put speedIncrease to 1
+    public void changeSpeed(Player player, Float speedIncrease) throws Exception {
+
+        // Calculate the new speed based on the speedIncrease
+        float newSpeed = defaultSpeed * speedIncrease;
+
+
+        if (newSpeed >= 0 && newSpeed <= 2){
+            // Change player speed
+            player.setWalkSpeed(newSpeed);
+        }
+        else {
+            throw new Exception("Walk speed should be between 0 and 2");
         }
     }
 
