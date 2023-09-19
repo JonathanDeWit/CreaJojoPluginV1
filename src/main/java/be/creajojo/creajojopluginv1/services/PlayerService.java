@@ -4,10 +4,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class PlayerService {
 
     private final float defaultSpeed = 0.20f;
+
+    //Default duration in seconds (5 minutes)
+    private final int defaultDuration = 300;
 
     private static PlayerService instance;
 
@@ -65,5 +70,29 @@ public class PlayerService {
             throw new Exception("Walk speed should be between 0 and 2");
         }
     }
+
+    // Add jump boost potion effect
+    public boolean addJumpBoost(Player player){
+        // Check if player already has the potion effect
+        if (!player.hasPotionEffect(PotionEffectType.JUMP)) {
+            // Mage the potion effect
+            PotionEffect jumpBoost = new PotionEffect(PotionEffectType.JUMP, defaultDuration * 20, 1);
+            // Add potion effect to player
+            player.addPotionEffect(jumpBoost);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    // Remove jup boost potion effect
+    public void removeJumpBoost(Player player){
+        // Check if player has the potion effect
+        if (player.hasPotionEffect(PotionEffectType.JUMP)) {
+            // Remove jump boost effect
+            player.removePotionEffect(PotionEffectType.JUMP);
+        }
+    }
+
 
 }
