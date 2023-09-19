@@ -7,3 +7,6 @@ commands:
   speed:
     description: Change walking speed
     usage: /<command> <multiplier>
+  jump:
+    description: Toggle Jump Boost effect
+    usage: /<command> <0|1>

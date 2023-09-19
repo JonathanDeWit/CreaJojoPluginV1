@@ -1,6 +1,7 @@
 package be.creajojo.creajojopluginv1;
 
-import be.creajojo.creajojopluginv1.commands.SeedCommand;
+import be.creajojo.creajojopluginv1.commands.JumpCommand;
+import be.creajojo.creajojopluginv1.commands.SpeedCommand;
 import be.creajojo.creajojopluginv1.events.listeners.MobEventListener;
 import be.creajojo.creajojopluginv1.events.listeners.PlayerEventListener;
 import org.bukkit.Bukkit;
@@ -19,7 +20,8 @@ public final class CreaJojoPluginV1 extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new MobEventListener(), this);
 
         // Add commands
-        this.getCommand("speed").setExecutor(new SeedCommand());
+        this.getCommand("speed").setExecutor(new SpeedCommand());
+        this.getCommand("jump").setExecutor(new JumpCommand());
     }
 
     @Override
