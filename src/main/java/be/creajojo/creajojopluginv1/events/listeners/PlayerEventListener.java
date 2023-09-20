@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 public class PlayerEventListener implements Listener {
@@ -32,7 +33,21 @@ public class PlayerEventListener implements Listener {
 
 
         //Load buff
-
     }
+
+
+    @EventHandler
+    public void onPlayerAttack(EntityDamageByEntityEvent event) {
+
+        String playerName = "";
+
+        if (event.getDamager() instanceof org.bukkit.entity.Player) {
+            // Add 0.5 extra damage to the original damage
+            double newDamage = event.getDamage() + 0.5;
+            event.setDamage(newDamage);
+        }
+    }
+
+
 
 }
