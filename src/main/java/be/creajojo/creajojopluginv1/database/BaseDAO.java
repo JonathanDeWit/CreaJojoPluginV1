@@ -4,7 +4,7 @@ import java.sql.Connection;
 
 public class BaseDAO {
 
-    Connection connection;
+    private Connection connection;
 
     public BaseDAO() {
 
