@@ -2,15 +2,15 @@ package be.creajojo.creajojopluginv1.Models;
 
 public class Buff {
     private int id;
-    private String BuffName;
-    private String BuffDescription;
-    private float improvement;
+    private String Name;
+    private String Description;
+    private float defaultImprovement;
 
     public Buff(int id, String BuffName, String BuffDescription, float improvement) {
         this.id = id;
-        this.BuffName = BuffName;
-        this.BuffDescription = BuffDescription;
-        this.improvement = improvement;
+        this.Name = BuffName;
+        this.Description = BuffDescription;
+        this.defaultImprovement = improvement;
     }
 
     // Getters and setters
@@ -18,32 +18,32 @@ public class Buff {
         return id;
     }
 
-    public String getBuffName() {
-        return BuffName;
+    public String getName() {
+        return Name;
     }
 
-    public String getBuffDescription() {
-        return BuffDescription;
+    public String getDescription() {
+        return Description;
     }
 
-    public float getImprovement() {
-        return improvement;
+    public float getDefaultImprovement() {
+        return defaultImprovement;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setBuffName(String BuffName) {
-        this.BuffName = BuffName;
+    public void setName(String BuffName) {
+        this.Name = BuffName;
     }
 
-    public void setBuffDescription(String BuffDescription) {
-        this.BuffDescription = BuffDescription;
+    public void setDescription(String BuffDescription) {
+        this.Description = BuffDescription;
     }
 
-    public void setImprovement(float improvement) {
-        this.improvement = improvement;
+    public void setDefaultImprovement(float defaultImprovement) {
+        this.defaultImprovement = defaultImprovement;
     }
 
 
