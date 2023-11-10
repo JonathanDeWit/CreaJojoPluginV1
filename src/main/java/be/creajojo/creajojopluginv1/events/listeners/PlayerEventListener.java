@@ -1,5 +1,7 @@
 package be.creajojo.creajojopluginv1.events.listeners;
 
+import be.creajojo.creajojopluginv1.Models.CustomPlayer;
+import be.creajojo.creajojopluginv1.database.daos.PlayerDAO;
 import be.creajojo.creajojopluginv1.services.PlayerService;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -8,6 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+
 
 public class PlayerEventListener implements Listener {
 
@@ -15,6 +19,15 @@ public class PlayerEventListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         // Get the current player
         Player player = event.getPlayer();
+
+        // Get or create the player from/to the database
+        CustomPlayer customPlayer = CustomPlayer.fromMinecraftPlayer(player);
+
+        PlayerDAO playerDAO = new PlayerDAO();
+        CustomPlayer dbPlayer = playerDAO.getOrCreatePlayer(customPlayer);
+
+
+
 
         // Determine color name
         ChatColor color = PlayerService.getInstance().getColorBasedOnPlaytime(player);
@@ -32,7 +45,17 @@ public class PlayerEventListener implements Listener {
         player.setPlayerListName(coloredName);
 
 
+
         //Load buff
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        // Get the player who left
+        Player player = event.getPlayer();
+
+        // Write a message to the server console
+        System.out.println(player.getName() + " has left the server.");
     }
 
 

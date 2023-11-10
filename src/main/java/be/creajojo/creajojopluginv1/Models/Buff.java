@@ -6,11 +6,22 @@ public class Buff {
     private String Description;
     private float defaultImprovement;
 
-    public Buff(int id, String BuffName, String BuffDescription, float improvement) {
+    private float maxImprovement;
+
+
+    public Buff(int id, String BuffName, String BuffDescription, float defaultImprovement, float maxImprovement) {
         this.id = id;
         this.Name = BuffName;
         this.Description = BuffDescription;
-        this.defaultImprovement = improvement;
+        this.defaultImprovement = defaultImprovement;
+        this.maxImprovement = maxImprovement;
+    }
+
+    public Buff(String BuffName, String BuffDescription, float defaultImprovement, float maxImprovement) {
+        this.Name = BuffName;
+        this.Description = BuffDescription;
+        this.defaultImprovement = defaultImprovement;
+        this.maxImprovement = maxImprovement;
     }
 
     // Getters and setters
@@ -30,6 +41,10 @@ public class Buff {
         return defaultImprovement;
     }
 
+    public float getMaxImprovement() {
+        return maxImprovement;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -44,6 +59,10 @@ public class Buff {
 
     public void setDefaultImprovement(float defaultImprovement) {
         this.defaultImprovement = defaultImprovement;
+    }
+
+    public void setMaxImprovement(float maxImprovement) {
+        this.maxImprovement = maxImprovement;
     }
 
 

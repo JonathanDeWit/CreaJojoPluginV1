@@ -1,7 +1,8 @@
 package be.creajojo.creajojopluginv1.database.daos;
 
-import be.creajojo.creajojopluginv1.Models.Player;
+import be.creajojo.creajojopluginv1.Models.CustomPlayer;
 import be.creajojo.creajojopluginv1.database.BaseDAO;
+import org.bukkit.Bukkit;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 public class PlayerDAO extends BaseDAO{
 
 
-    public int savePlayer(Player player) {
+    public int savePlayer(CustomPlayer player) {
         int execute = 0;
 
         try{
@@ -27,22 +28,37 @@ public class PlayerDAO extends BaseDAO{
         return execute;
     }
 
-    public Player getPlayerByName(String name) {
-        Player player = null;
+    public CustomPlayer getPlayerByName(String name) {
+        CustomPlayer player = null;
 
         try{
-            PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM Player WHERE PlayerName = ?");
+            PreparedStatement statement = getConnection().prepareStatement("SELECT Id, PlayerName, PlayTime FROM Player WHERE PlayerName = ?");
 
             statement.setString(1, name);
 
             ResultSet set = statement.executeQuery();
 
-            player = new Player(set.getInt(1), set.getString(2), set.getDouble(3));
+            if (set.next()) {
+                player = new CustomPlayer(set.getInt(1), set.getString(2), set.getDouble(3));
+            }
         }catch (SQLException exception) {
             System.out.println("Error: " + exception.getMessage());
             exception.printStackTrace();
         }
 
         return player;
+    }
+
+    public CustomPlayer getOrCreatePlayer(CustomPlayer player) {
+        Bukkit.getLogger().info("Get or create player");
+        CustomPlayer dbPlayer = getPlayerByName(player.getName());
+        if (dbPlayer == null) {
+            Bukkit.getLogger().info("Player not found in database, creating new player");
+            dbPlayer = player;
+            savePlayer(player);
+        }else{
+            Bukkit.getLogger().info("Player found in database");
+        }
+        return dbPlayer;
     }
 }

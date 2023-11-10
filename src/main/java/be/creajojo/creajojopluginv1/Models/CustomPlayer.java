@@ -1,13 +1,13 @@
 package be.creajojo.creajojopluginv1.Models;
 
-import java.math.BigInteger;
+import org.bukkit.Statistic;
 
-public class Player {
+public class CustomPlayer {
     private int id;
     private String Name;
     private double PlayTime;
 
-    public Player(int id, String Name, Double PlayTime) {
+    public CustomPlayer(int id, String Name, Double PlayTime) {
         this.id = id;
         this.Name = Name;
         this.PlayTime = PlayTime;
@@ -36,5 +36,9 @@ public class Player {
 
     public void setPlayTime(Double PlayTime) {
         this.PlayTime = PlayTime;
+    }
+
+    public static CustomPlayer fromMinecraftPlayer(org.bukkit.entity.Player player) {
+        return new CustomPlayer(0, player.getName(), (double) player.getStatistic(Statistic.PLAY_ONE_MINUTE));
     }
 }

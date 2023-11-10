@@ -13,8 +13,8 @@ public class DBSingleton {
     // Credentials
     // Database
     private final String url = "jdbc:mysql://localhost/minecraft";
-    private final String user = "...";
-    private final String pass = "...";
+    private final String user = "minecraft";
+    private final String pass = "Student1";
 
     private DBSingleton() {
 

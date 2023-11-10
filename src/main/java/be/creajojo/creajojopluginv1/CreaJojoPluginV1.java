@@ -27,6 +27,7 @@ public final class CreaJojoPluginV1 extends JavaPlugin {
         //DataBase initialization
         InitDAO initDAO = new InitDAO();
         initDAO.InitDataBase();
+        initDAO.populateDataBase();
     }
 
     @Override
