@@ -5,6 +5,7 @@ import be.creajojo.creajojopluginv1.database.daos.PlayerDAO;
 import be.creajojo.creajojopluginv1.services.PlayerService;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -53,6 +54,10 @@ public class PlayerEventListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         // Get the player who left
         Player player = event.getPlayer();
+
+        // Update player time
+        PlayerDAO playerDAO = new PlayerDAO();
+        playerDAO.updatePlayTime((double) player.getStatistic(Statistic.PLAY_ONE_MINUTE), player.getName());
 
         // Write a message to the server console
         System.out.println(player.getName() + " has left the server.");

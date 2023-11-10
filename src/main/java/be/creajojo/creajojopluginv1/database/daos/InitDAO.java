@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class InitDAO extends BaseDAO {
 
-    private final String createPlayerTable = "CREATE TABLE IF NOT EXISTS player (Id INT PRIMARY KEY, PlayerName VARCHAR(255), PlayTime Double);";
+    private final String createPlayerTable = "CREATE TABLE IF NOT EXISTS player (Id INT AUTO_INCREMENT PRIMARY KEY, PlayerName VARCHAR(255) UNIQUE, PlayTime Double);";
     private final String createBuffTable = "CREATE TABLE IF NOT EXISTS buff (Id INT AUTO_INCREMENT PRIMARY KEY, Name VARCHAR(255), Description VARCHAR(255), defaultImprovement FLOAT, maxImprovement FLOAT, CONSTRAINT default_less_than_max CHECK (defaultImprovement <= maxImprovement));";
     private final String createPlayerBuffTable = "CREATE TABLE IF NOT EXISTS player_buff (BuffId INT, PlayerId INT, Improvement FLOAT, FOREIGN KEY (BuffId) REFERENCES buff(Id), FOREIGN KEY (PlayerId) REFERENCES player(Id));";
 

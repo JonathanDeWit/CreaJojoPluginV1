@@ -61,4 +61,22 @@ public class PlayerDAO extends BaseDAO{
         }
         return dbPlayer;
     }
+
+
+    public int updatePlayTime(double playTime, String name) {
+        int execute = 0;
+        try{
+            PreparedStatement statement = getConnection().prepareStatement("UPDATE Player SET PlayTime = ? WHERE PlayerName = ?");
+
+            statement.setDouble(1, playTime);
+            statement.setString(2, name);
+
+            execute = statement.executeUpdate();
+        }catch (SQLException exception) {
+            System.out.println("Error: " + exception.getMessage());
+            exception.printStackTrace();
+        }
+        return execute;
+    }
+
 }
