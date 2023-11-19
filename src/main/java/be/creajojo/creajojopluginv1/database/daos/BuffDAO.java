@@ -37,8 +37,6 @@ public class BuffDAO extends BaseDAO implements DAOEntity<Buff>
     public int count() {
         int execute = 0;
 
-        //SELECT COUNT(*) FROM buff;
-        //Without PreparedStatement
         try{
             ResultSet result = getConnection().createStatement().executeQuery("SELECT COUNT(*) FROM buff");
             if (result.next()) {

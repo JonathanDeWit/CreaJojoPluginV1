@@ -27,7 +27,8 @@ public class PlayerEventListener implements Listener {
         PlayerDAO playerDAO = new PlayerDAO();
         CustomPlayer dbPlayer = playerDAO.getOrCreatePlayer(customPlayer);
 
-
+        // Log player
+        Bukkit.getLogger().info("Player: "+dbPlayer.toString()+" joined the server");
 
 
         // Determine color name

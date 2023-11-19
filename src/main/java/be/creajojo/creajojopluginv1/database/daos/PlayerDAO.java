@@ -32,14 +32,14 @@ public class PlayerDAO extends BaseDAO{
         CustomPlayer player = null;
 
         try{
-            PreparedStatement statement = getConnection().prepareStatement("SELECT Id, PlayerName, PlayTime FROM Player WHERE PlayerName = ?");
+            PreparedStatement statement = getConnection().prepareStatement("SELECT Id, PlayerName, PlayTime, FirstJoin, LastUpdate FROM Player WHERE PlayerName = ?");
 
             statement.setString(1, name);
 
             ResultSet set = statement.executeQuery();
 
             if (set.next()) {
-                player = new CustomPlayer(set.getInt(1), set.getString(2), set.getDouble(3));
+                player = new CustomPlayer(set.getInt(1), set.getString(2), set.getDouble(3), set.getDate(4).toLocalDate(), set.getTimestamp(5).toLocalDateTime());
             }
         }catch (SQLException exception) {
             System.out.println("Error: " + exception.getMessage());

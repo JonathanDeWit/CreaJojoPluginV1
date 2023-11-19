@@ -1,12 +1,14 @@
 package be.creajojo.creajojopluginv1.Models;
 
+import java.time.LocalDateTime;
+
 public class Buff {
     private int id;
     private String Name;
     private String Description;
     private float defaultImprovement;
-
     private float maxImprovement;
+    private LocalDateTime addedAt;
 
 
     public Buff(int id, String BuffName, String BuffDescription, float defaultImprovement, float maxImprovement) {
@@ -15,6 +17,7 @@ public class Buff {
         this.Description = BuffDescription;
         this.defaultImprovement = defaultImprovement;
         this.maxImprovement = maxImprovement;
+        this.addedAt = LocalDateTime.now();
     }
 
     public Buff(String BuffName, String BuffDescription, float defaultImprovement, float maxImprovement) {
@@ -45,6 +48,10 @@ public class Buff {
         return maxImprovement;
     }
 
+    public LocalDateTime getAddedAt() {
+        return addedAt;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -63,6 +70,10 @@ public class Buff {
 
     public void setMaxImprovement(float maxImprovement) {
         this.maxImprovement = maxImprovement;
+    }
+
+    public void setAddedAt(LocalDateTime addedAt) {
+        this.addedAt = addedAt;
     }
 
 
