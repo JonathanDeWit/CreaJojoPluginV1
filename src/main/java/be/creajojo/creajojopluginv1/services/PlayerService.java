@@ -1,11 +1,18 @@
 package be.creajojo.creajojopluginv1.services;
 
+import be.creajojo.creajojopluginv1.Models.Buff;
+import be.creajojo.creajojopluginv1.Models.CustomPlayer;
+import be.creajojo.creajojopluginv1.Models.PlayerBuff;
+import be.creajojo.creajojopluginv1.database.daos.BuffDAO;
+import be.creajojo.creajojopluginv1.database.daos.PlayerBuffDAO;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.ArrayList;
 
 public class PlayerService {
 
@@ -95,4 +102,21 @@ public class PlayerService {
     }
 
 
+    public ArrayList<PlayerBuff> getOrCreatePlayerBuffs(CustomPlayer player){
+        PlayerBuffDAO playerBuffDAO = new PlayerBuffDAO();
+        BuffDAO buffDAO = new BuffDAO();
+
+
+        int playerBuffCount =  playerBuffDAO.count(player.getId());
+        int buffCount = buffDAO.count();
+
+        if (playerBuffCount < buffCount){
+            ArrayList<Buff> buffs = buffDAO.getRecentBuffs(player.getLastUpdate());
+            playerBuffDAO.saveDefaultPlayerBuffs(player.getId(), buffs);
+        }
+
+        ArrayList<PlayerBuff> playerBuffs = playerBuffDAO.getPlayerBuffByPlayerId(player.getId());
+
+        return  playerBuffs;
+    }
 }

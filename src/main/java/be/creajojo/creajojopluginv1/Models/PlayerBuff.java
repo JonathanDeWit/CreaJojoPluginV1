@@ -5,9 +5,10 @@ public class PlayerBuff {
     private int PlayerId;
     private float Improvement;
 
-    public PlayerBuff(int BuffId, int PlayerId) {
+    public PlayerBuff(int BuffId, int PlayerId, float Improvement) {
         this.BuffId = BuffId;
         this.PlayerId = PlayerId;
+        this.Improvement = Improvement;
     }
 
     // Getters and setters
@@ -33,5 +34,14 @@ public class PlayerBuff {
 
     public void setImprovement(float Improvement) {
         this.Improvement = Improvement;
+    }
+
+    @Override
+    public String toString() {
+        return "PlayerBuff{" +
+                "BuffId=" + BuffId +
+                ", PlayerId=" + PlayerId +
+                ", Improvement=" + Improvement +
+                '}';
     }
 }

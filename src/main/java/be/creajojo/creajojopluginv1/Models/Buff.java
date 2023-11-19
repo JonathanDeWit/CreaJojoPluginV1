@@ -11,13 +11,13 @@ public class Buff {
     private LocalDateTime addedAt;
 
 
-    public Buff(int id, String BuffName, String BuffDescription, float defaultImprovement, float maxImprovement) {
+    public Buff(int id, String BuffName, String BuffDescription, float defaultImprovement, float maxImprovement, LocalDateTime addedAt) {
         this.id = id;
         this.Name = BuffName;
         this.Description = BuffDescription;
         this.defaultImprovement = defaultImprovement;
         this.maxImprovement = maxImprovement;
-        this.addedAt = LocalDateTime.now();
+        this.addedAt = addedAt;
     }
 
     public Buff(String BuffName, String BuffDescription, float defaultImprovement, float maxImprovement) {
@@ -25,6 +25,7 @@ public class Buff {
         this.Description = BuffDescription;
         this.defaultImprovement = defaultImprovement;
         this.maxImprovement = maxImprovement;
+        this.addedAt = LocalDateTime.now();
     }
 
     // Getters and setters
@@ -76,5 +77,15 @@ public class Buff {
         this.addedAt = addedAt;
     }
 
-
+    @Override
+    public String toString() {
+        return "Buff{" +
+                "id=" + id +
+                ", Name='" + Name + '\'' +
+                ", Description='" + Description + '\'' +
+                ", defaultImprovement=" + defaultImprovement +
+                ", maxImprovement=" + maxImprovement +
+                ", addedAt=" + addedAt +
+                '}';
+    }
 }

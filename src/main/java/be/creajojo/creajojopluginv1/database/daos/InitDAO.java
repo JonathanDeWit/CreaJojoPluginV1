@@ -96,7 +96,4 @@ public class InitDAO extends BaseDAO {
 
         return execute;
     }
-
-
-
 }

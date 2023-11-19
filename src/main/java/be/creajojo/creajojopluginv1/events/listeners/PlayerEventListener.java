@@ -1,6 +1,7 @@
 package be.creajojo.creajojopluginv1.events.listeners;
 
 import be.creajojo.creajojopluginv1.Models.CustomPlayer;
+import be.creajojo.creajojopluginv1.Models.PlayerBuff;
 import be.creajojo.creajojopluginv1.database.daos.PlayerDAO;
 import be.creajojo.creajojopluginv1.services.PlayerService;
 import org.bukkit.Bukkit;
@@ -13,6 +14,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.ArrayList;
+
 
 public class PlayerEventListener implements Listener {
 
@@ -20,6 +23,7 @@ public class PlayerEventListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         // Get the current player
         Player player = event.getPlayer();
+        PlayerService playerService = PlayerService.getInstance();
 
         // Get or create the player from/to the database
         CustomPlayer customPlayer = CustomPlayer.fromMinecraftPlayer(player);
@@ -27,12 +31,15 @@ public class PlayerEventListener implements Listener {
         PlayerDAO playerDAO = new PlayerDAO();
         CustomPlayer dbPlayer = playerDAO.getOrCreatePlayer(customPlayer);
 
+        // Get or create player buffs
+        ArrayList<PlayerBuff> playerBuffs = playerService.getOrCreatePlayerBuffs(dbPlayer);
+
         // Log player
         Bukkit.getLogger().info("Player: "+dbPlayer.toString()+" joined the server");
 
 
         // Determine color name
-        ChatColor color = PlayerService.getInstance().getColorBasedOnPlaytime(player);
+        ChatColor color = playerService.getColorBasedOnPlaytime(player);
 
         // Change the username's color
         String coloredName = color + player.getName() + ChatColor.RESET;
