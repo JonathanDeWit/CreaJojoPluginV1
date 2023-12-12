@@ -2,7 +2,6 @@ package be.creajojo.creajojopluginv1;
 
 import be.creajojo.creajojopluginv1.commands.JumpCommand;
 import be.creajojo.creajojopluginv1.commands.SpeedCommand;
-import be.creajojo.creajojopluginv1.database.daos.InitDAO;
 import be.creajojo.creajojopluginv1.events.listeners.MobEventListener;
 import be.creajojo.creajojopluginv1.events.listeners.PlayerEventListener;
 import org.bukkit.Bukkit;
@@ -23,11 +22,6 @@ public final class CreaJojoPluginV1 extends JavaPlugin {
         // Add commands
         this.getCommand("speed").setExecutor(new SpeedCommand());
         this.getCommand("jump").setExecutor(new JumpCommand());
-
-        //DataBase initialization
-        InitDAO initDAO = new InitDAO();
-        initDAO.InitDataBase();
-        initDAO.populateDataBase();
     }
 
     @Override
