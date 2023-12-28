@@ -5,6 +5,8 @@ import be.creajojo.creajojopluginv1.Models.CustomPlayer;
 import be.creajojo.creajojopluginv1.Models.PlayerBuff;
 import be.creajojo.creajojopluginv1.database.daos.BuffDAO;
 import be.creajojo.creajojopluginv1.database.daos.PlayerBuffDAO;
+import be.creajojo.creajojopluginv1.database.daos.PlayerDAO;
+import be.creajojo.creajojopluginv1.dtos.PlayerWithBuffs;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Statistic;
@@ -118,5 +120,18 @@ public class PlayerService {
         ArrayList<PlayerBuff> playerBuffs = playerBuffDAO.getPlayerBuffByPlayerId(player.getId());
 
         return  playerBuffs;
+    }
+
+    public PlayerWithBuffs getPlayerWithBuffs(String playerName){
+        // Get or create the player from/to the database
+
+        PlayerDAO playerDAO = new PlayerDAO();
+        CustomPlayer dbPlayer = playerDAO.getPlayerByName(playerName);
+
+        // Get or create player buffs
+        ArrayList<PlayerBuff> playerBuffs = getOrCreatePlayerBuffs(dbPlayer);
+
+        PlayerWithBuffs playerWithBuffs = new PlayerWithBuffs(dbPlayer, playerBuffs);
+        return  playerWithBuffs;
     }
 }

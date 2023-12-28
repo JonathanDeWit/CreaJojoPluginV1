@@ -2,7 +2,9 @@ package be.creajojo.creajojopluginv1.database.daos;
 
 import be.creajojo.creajojopluginv1.Models.Buff;
 import be.creajojo.creajojopluginv1.Models.CustomPlayer;
+import be.creajojo.creajojopluginv1.Models.PlayerBuff;
 import be.creajojo.creajojopluginv1.database.BaseDAO;
+import be.creajojo.creajojopluginv1.dtos.PlayerBuffWithName;
 import org.bukkit.Bukkit;
 
 import java.sql.PreparedStatement;
@@ -111,5 +113,26 @@ public class PlayerDAO extends BaseDAO{
         }
         return execute;
     }
+
+    public ArrayList<PlayerBuffWithName> getPlayersWithBuffs() {
+        Bukkit.getLogger().info("PlayerDAO getPlayersWithBuffs");
+        ArrayList<PlayerBuffWithName> playersWithBuffs = new ArrayList<>();
+
+        try{
+            PreparedStatement statement = getConnection().prepareStatement("SELECT pb.BuffId, b.Name, pb.PlayerId, p.PlayerName, b.defaultImprovement, b.maxImprovement, pb.Improvement FROM player_buff pb JOIN player p ON(pb.PlayerId = p.Id) INNER JOIN buff b ON (pb.BuffId = b.Id)");
+
+            ResultSet set = statement.executeQuery();
+
+            while (set.next()) {
+                playersWithBuffs.add(new PlayerBuffWithName(new Buff(set.getInt(1), set.getString(2), "", set.getFloat(5), set.getFloat(6), LocalDateTime.now()), new CustomPlayer(set.getInt(3), set.getString(4), 0.0), new PlayerBuff(set.getInt(1), set.getInt(3), set.getFloat(7))));
+            }
+        }catch (SQLException exception) {
+            System.out.println("Error: " + exception.getMessage());
+            exception.printStackTrace();
+        }
+
+        return playersWithBuffs;
+    }
+
 
 }

@@ -1,7 +1,9 @@
 package be.creajojo.creajojopluginv1.events.listeners;
 
+import be.creajojo.creajojopluginv1.Models.Buff;
 import be.creajojo.creajojopluginv1.Models.CustomPlayer;
 import be.creajojo.creajojopluginv1.Models.PlayerBuff;
+import be.creajojo.creajojopluginv1.database.daos.BuffDAO;
 import be.creajojo.creajojopluginv1.database.daos.PlayerDAO;
 import be.creajojo.creajojopluginv1.services.PlayerService;
 import org.bukkit.Bukkit;
@@ -19,6 +21,14 @@ import java.util.ArrayList;
 
 public class PlayerEventListener implements Listener {
 
+    private volatile ArrayList<Buff> allBuffs;
+
+    public PlayerEventListener() {
+        // Get all existing buffs
+        BuffDAO buffDAO = new BuffDAO();
+        allBuffs = buffDAO.getAllBuffs();
+    }
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         // Get the current player
@@ -33,6 +43,10 @@ public class PlayerEventListener implements Listener {
 
         // Get or create player buffs
         ArrayList<PlayerBuff> playerBuffs = playerService.getOrCreatePlayerBuffs(dbPlayer);
+
+
+        // Todo: find a way to save player and playerBuffs for the whole session.
+
 
         // Log player
         Bukkit.getLogger().info("Player: "+dbPlayer.toString()+" joined the server");
@@ -78,9 +92,21 @@ public class PlayerEventListener implements Listener {
         String playerName = "";
 
         if (event.getDamager() instanceof org.bukkit.entity.Player) {
+            org.bukkit.entity.Player player = (org.bukkit.entity.Player) event.getDamager();
+
+
+
+
+
+            // Retrieve and assign the player's name
+            playerName = player.getName();
+
             // Add 0.5 extra damage to the original damage
             double newDamage = event.getDamage() + 0.5;
             event.setDamage(newDamage);
+
+
+            System.out.println("Player " + playerName + " has attacked an entity.");
         }
     }
 
